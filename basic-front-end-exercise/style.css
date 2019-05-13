@@ -1,0 +1,66 @@
+body {
+  margin: 0;
+}
+
+#header {
+  background-color: black;
+  color: white;
+  padding: 10px;
+  width: 100%;
+  text-align: center;
+  font-size: 40px;
+}
+
+#contant_area{
+  padding: 15px;
+  height: 80%;
+}
+
+.column{
+  float: left;
+  padding: 10px;
+}
+
+#button_panel{
+  width: 20%;
+  background-color: lightgrey;
+}
+
+.button_panel_area{
+  padding: 15px;
+}
+
+.button_panel_area ul{
+  list-style-type: none;
+  overflow: auto;
+}
+
+.button_list{
+  padding: 2px !important;
+
+}
+
+.button_list li{
+  padding: 5 px;
+}
+
+#table_panel{
+  width: 80%;
+}
+
+th{
+  padding: 10px;
+}
+
+.row::after{
+  content: "";
+  display:table;
+  clear:both;
+}
+
+#footer {
+  width: 100 %;
+  background-color: black;
+  text-align: center;
+  color: white;
+}

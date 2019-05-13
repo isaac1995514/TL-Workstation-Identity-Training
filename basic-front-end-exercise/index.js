@@ -7,91 +7,84 @@ const code = {
 
 $(function() {
 
-  let getData = (url, errorMessage) => {
-    let result = null;
+  let getData = (url, errorMsg, resolve, reject) => {
 
     $.get(url, (data, status) => {
-      if(status !== code['200']){
-        alert(errorMessage);
-        console.log(status);
-      }else{
-        result = data;
-      }
+      status === code['200'] ?
+       resolve(data) :
+       reject(`ErrorMsg: ${errorMsg}, Status: ${status}`);
     });
   }
 
-  let getRepository = (url) => {
+  let getRadioBtns = (items) => {
 
-    let data = getData(url, 'Error! Repository could not be found');
-
-    if(data !== null){
-      data = data['items'];
+    let buttons = "";
+    for(item of items){
+      buttons += `<li>
+                    <input
+                        class = "repositoryButton"
+                        type = "radio"
+                        name = "repository"
+                        value = "${radioUrl}${item['full_name']}/commits">
+                         ${item['full_name']}
+                    </input>
+                  </li>`
     }
-
-    return data;
+    return buttons;
   }
 
-  let getCommits = (url) => {
-    return getData(url, 'Error! Commits cannot be found');
+  let handleRadioBtnSelect = (url) => {
 
+    let getCommits = new Promise((resolve, reject) => {
+      let errorMsg = 'Error! Commits cannot be found';
+      getData(url, errorMsg, resolve, reject);
+
+    }).then((data) => {
+      let contentBody = document.querySelector('#content_body');
+      contentBody.innerHTML = "";
+
+      for(commit of data){
+        contentBody.innerHTML += `<td>${commit['commit']['author']['name']}</td>
+                   <td>${commit['commit']['author']['email']}</td>
+                   <td>${commit['commit']['author']['date']}</td>
+                   <td>${commit['commit']['message']}</td>`;
+      }
+
+    }).catch((errorMsg) => {
+      alert(errorMsg);
+    })
   }
 
   let handleButtonClick = () => {
-    let inputValue = document.querySelector('#text_value').value;
-    let fullUrl = `${btnUrl}?q=${inputValue}`;
+    // Start Async to obtain list of repository
+    let getRepositoryAsync = new Promise((resolve, reject) => {
 
-    // Get Repository based on input value
-    let items = getRepository(fullUrl);
+      let inputValue = document.querySelector('#text_value').value;
+      let fullUrl = `${btnUrl}?q=${inputValue}`;
+      let errorMsg = 'Error! Repository could not be found';
 
-    // If repository received
-    if(items !== null){
+      getData(fullUrl, errorMsg, resolve, reject);
 
+    }).then((data) => {
+
+      let items = data['items'];
       // Add Buttons to button panel
-      let buttonPanel = document.querySelector('.button_list');
-      let buttons = "";
-
-      for(item of items){
-        buttons += `<li>
-                      <input
-                          class = "repositoryButton"
-                          type = "radio"
-                          name = "repository"
-                          value = "${radioUrl}${item['full_name']}/commits">
-                           ${item['full_name']}
-                      </input>
-                    </li>`
-      }
-
-      buttonPanel.html(buttons);
+      let buttonList = document.querySelector('.button_list');
+      let buttons = getRadioBtns(items);
+      buttonList.innerHTML = buttons;
 
       // Add callback functions to radio buttons
       let allButtons = document.querySelectorAll('.repositoryButton');
 
       for(button of allButtons){
         let url = button.value;
-        button.onclick = () => {
-          let commits = getCommits(url);
-
-          if(commit !== null){
-            let contentBody = document.querySelector('#content_body');
-            contentBody.innerHTML = "";
-
-            for(commit of data){
-              let row = `<td>${commit['commit']['author']['name']}</td>
-                         <td>${commit['commit']['author']['email']}</td>
-                         <td>${commit['commit']['author']['date']}</td>
-                         <td>${commit['commit']['message']}</td>`;
-              contentBody.innerHTML += row;
-            }
-          }else{
-            return;
-          }
-        }
+        button.onclick = () => handleRadioBtnSelect(url);
       }
 
-    }else{
-      return;
-    }
+
+    }).catch((errorMsg) => {
+        alert(errorMsg);
+    })
   }
 
   $('#go_button').click(handleButtonClick);

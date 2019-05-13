@@ -19,7 +19,7 @@ $(function() {
   let getRadioBtns = (items) => {
 
     let buttons = "";
-    for(item of items){
+    for(let item of items){
       buttons += `<li>
                     <input
                         class = "repositoryButton"
@@ -76,7 +76,7 @@ $(function() {
       // Add callback functions to radio buttons
       let allButtons = document.querySelectorAll('.repositoryButton');
 
-      for(button of allButtons){
+      for(let button of allButtons){
         let url = button.value;
         button.onclick = () => handleRadioBtnSelect(url);
       }

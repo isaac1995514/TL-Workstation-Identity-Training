@@ -1,0 +1,41 @@
+#top_container {
+  background-color: black;
+  padding: 10px;
+  border: thick solid;
+  color: white;
+  text-align: center;
+}
+
+#bottom_container{
+  background-color: black;
+  border: thick solid;
+  color: white;
+  text-align: center;
+}
+
+#bottom_container.fixed {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+}
+
+.sidebar{
+  background-color: lightgrey;
+}
+
+.input_panel{
+  padding:  5px;
+}
+
+.button_panel{
+  overflow: scroll;
+}
+
+#go_button{
+  color: white;
+  background-color: blue;
+}
+
+th{
+  padding: 10px;
+}

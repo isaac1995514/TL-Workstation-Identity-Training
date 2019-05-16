@@ -7,11 +7,10 @@ class RepositoryButtonList extends React.Component{
     return(
       <div className = "button_panel_area" id = "button_area">
         <ul className = "button_list">
-          {this.props.repositoryList.map((item) => {
-            return <RepositoryRadioButton
+          {this.props.repository.get('repository').map((item) => {
+            return <RepositoryRadioButton {...this.props}
                       key = {item['full_name']}
-                      fullName = {item['full_name']}
-                      handleRadioBtnSelect = {this.props.handleRadioBtnSelect}/>
+                      fullName = {item['full_name']}/>
           })}
         </ul>
       </div>

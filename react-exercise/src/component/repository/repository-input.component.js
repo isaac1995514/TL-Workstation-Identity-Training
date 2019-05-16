@@ -8,14 +8,13 @@ class RepositoryInput extends React.Component{
         <input
           id = 'text_value'
           type='text'
-          value = {this.props.inputValue}
-          onChange = {this.props.handleInputChange}/>
-
+          value = {this.props.repository.get('inputValue')}
+          onChange = {(e) => this.props.onInputChange(e)}/>
         <input
           id = 'go_button'
           type='button'
           value="Go!"
-          onClick = {() => this.props.handleClick(this.props.inputValue)}/>
+          onClick = {() => this.props.onGoButtonClick(this.props.repository.get('inputValue'))}/>
       </div>
     );
   }

@@ -4,6 +4,8 @@ import CommitEntry from './commit-entry.component';
 class Commit extends React.Component{
 
   render(){
+
+
     return(
       <div className = "column" id = "table_panel">
         <table id = "commit_table">
@@ -14,7 +16,7 @@ class Commit extends React.Component{
             </thead>
             <tbody id = "content_body">
               {
-                this.props.commitList.map((commit) => {
+                this.props.commit.map((commit) => {
                   return <CommitEntry commit = {commit}/>
                 })
               }

@@ -1,0 +1,4 @@
+export const CommitActionType = {
+  RADIO_BTN_SELECTED: "REPOSITORY_BTN_SELECTED",
+  COMMIT_API_LOAD: "COMMIT_API_LOAD",
+};

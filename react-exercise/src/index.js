@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './style.css';
-import App from './component/app.component';
+import AppContainer from './app.container';
 
-ReactDOM.render(<App />, document.getElementById('content_panel'));
+ReactDOM.render(<AppContainer />, document.getElementById('content_panel'));

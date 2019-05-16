@@ -5,14 +5,14 @@ const radioUrl = 'https://api.github.com/repos/';
 class RepositoryRadioButton extends React.Component{
 
   render(){
-    let fullUrl = `${radioUrl}${this.props.fullName}/commits`;
+    let url = `${radioUrl}${this.props.fullName}/commits`;
     return(
       <li>
         <input
           className = "repositoryButton"
           type = "radio"
           name = "repository"
-          onClick = {() => this.props.handleRadioBtnSelect(fullUrl)}/>
+          onClick = {() => this.props.onRadioBtnSelect(url)}/>
           {" " + this.props.fullName}
       </li>
     );

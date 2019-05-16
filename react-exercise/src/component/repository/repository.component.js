@@ -16,13 +16,8 @@ class Repository extends React.Component{
   render(){
     return(
       <div className = "column" id = "button_panel">
-        <RepositoryInput
-          handleClick = {this.props.handleClick}
-          handleInputChange = {this.handleInputChange}
-          inputValue = {this.state.inputValue}/>
-        <RepositoryButtonList
-          repositoryList = {this.props.repositoryList}
-          handleRadioBtnSelect = {this.props.handleRadioBtnSelect}/>
+        <RepositoryInput {...this.props}/>
+        <RepositoryButtonList {...this.props}/>
       </div>
     )
   }
